@@ -9,13 +9,28 @@ class Users extends CI_Controller {
 	}
 
 	public function response($data){
-		$this->output
-			 ->set_content_type('application/json')
-			 ->set_status_header(200)
-			 ->set_output(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
-			 ->_display();
+		if($data != null){
+			$this->output
+				 ->set_content_type('application/json')
+				 ->set_status_header(200)
+				 ->set_output(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+				 ->_display();
 
-		exit;
+			exit;
+		}else{
+			$data = array(
+				'status' => 'Error404',
+				'message' => 'User Not Found'
+			);
+			$this->output
+        ->set_status_header(404)
+        ->set_content_type('application/json', 'utf-8')
+        ->set_output(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+        ->_display();
+
+				exit;
+
+		}
 	}
 
 	public function register(){
@@ -26,8 +41,8 @@ class Users extends CI_Controller {
 		return $this->response($this->user->get());
 	}
 
-	public function get_user(){
-
+	public function get_user($id){
+		return $this->response($this->user->get('id_users', $id));
 	}
 
 }

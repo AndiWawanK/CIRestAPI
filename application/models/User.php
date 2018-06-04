@@ -18,7 +18,10 @@
 			}
 		}
 
-		public function get(){
+		public function get($key = null, $value = null){
+			if($key != null){
+				return $this->db->get_where('users', array($key => $value))->row();
+			}
 			return $this->db->get('users')->result();
 		}
 
