@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	class User extends CI_Model{
 
@@ -16,6 +16,10 @@
 					'message' 	=> 'data successfully entered'
 				];
 			}
+		}
+
+		public function get(){
+			return $this->db->get('users')->result();
 		}
 
 	}
