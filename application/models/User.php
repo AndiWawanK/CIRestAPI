@@ -26,6 +26,9 @@
 		}
 
 		public function delete_user($id = null){
-			return $this->db->delete('users', array('id_users' => $id));
+			$data = $this->db->get_where('users', array('id_users' => $id))->row();
+			if($data != null){
+				return $this->db->delete('users', array('id_users' => $id));
+			}
 		}
 	}
