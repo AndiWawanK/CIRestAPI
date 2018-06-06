@@ -20,7 +20,7 @@ class Users extends CI_Controller {
 			exit;
 		}else{
 			$data = array(
-				'status' => 'Error404',
+				'status' => false,
 				'message' => 'User Not Found'
 			);
 			$this->output
@@ -30,7 +30,6 @@ class Users extends CI_Controller {
         ->_display();
 
 				exit;
-
 		}
 	}
 
@@ -46,4 +45,34 @@ class Users extends CI_Controller {
 		return $this->response($this->user->get('id_users', $id));
 	}
 
+	public function deleted($data){
+		if($data != null){
+			$respon = array(
+				'status' => false,
+				'message' => 'User not found!'
+			);
+			$this->output
+					 ->set_status_header(404)
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respon, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+					 ->_display();
+					 exit();
+		}else{
+			$respon = array(
+				'status' => true,
+				'message' => 'User has been deleted'
+			);
+			$this->output
+					 ->set_status_header(200)
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respon, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+					 ->_display();
+					 exit();
+		}
+	}
+	public function delete($id){
+		// var_dump($id);
+		// die();
+		return $this->deleted($this->user->delete_user($id));
+	}
 }

@@ -25,4 +25,7 @@
 			return $this->db->get('users')->result();
 		}
 
+		public function delete_user($id = null){
+			return $this->db->delete('users', array('id_users' => $id));
+		}
 	}
