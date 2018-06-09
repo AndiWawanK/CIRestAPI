@@ -25,6 +25,20 @@
 			return $this->db->get('users')->result();
 		}
 
+		public function is_valid(){
+			$email 		= $this->input->post('email');
+			$password = $this->input->post('password');
+
+			$hash = $this->get('email', $email)->password;
+
+			if(password_verify($password, $hash))
+					return true;
+
+				return false;
+			
+
+		}
+
 		public function delete_user($id = null){
 			$data = $this->db->get_where('users', array('id_users' => $id))->row();
 			if($data != null){

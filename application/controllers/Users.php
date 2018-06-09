@@ -45,6 +45,19 @@ class Users extends CI_Controller {
 		return $this->response($this->user->get('id_users', $id));
 	}
 
+
+	public function login(){
+		// var_dump($this->user->is_valid());
+		// die();
+		if(!$this->user->is_valid()){
+			return $this->response([
+				'status'  => false,
+				'message' => "Email atau Password Salah!"
+			]);
+		}
+		die('hard');
+	}
+
 	public function deleted($data){
 		if($data != null){
 			$respon = array(
@@ -73,4 +86,5 @@ class Users extends CI_Controller {
 	public function delete($id){
 		return $this->deleted($this->user->delete_user($id));
 	}
+
 }
