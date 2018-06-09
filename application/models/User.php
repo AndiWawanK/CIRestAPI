@@ -6,7 +6,7 @@
 
 			$data = array(
 				'email' => $this->input->post('email'),
-				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+				'password' => password_hash($this->input->post('password'),PASSWORD_BCRYPT)
 			);
 
 			if($this->db->insert('users', $data)){
@@ -31,11 +31,11 @@
 
 			$hash = $this->get('email', $email)->password;
 
-			if(password_verify($password, $hash))
-					return true;
-
+			if(password_verify($password, $hash)){
+				return true;
+			}else{
 				return false;
-			
+			}
 
 		}
 
